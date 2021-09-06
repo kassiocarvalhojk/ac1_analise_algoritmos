@@ -122,7 +122,7 @@ print('Lista gerada aleatoriamente\n', e)
 quick_sort(e, 0, len(e) - 1)
 print('Lista ordenada\n', e)
 final_QUICK = time.time()
-print('Tempo de execução do MERGE SORT: ', round(final_QUICK - inicio_QUICK, 5),'segundos')
+print('Tempo de execução do QUICK SORT: ', round(final_QUICK - inicio_QUICK, 5),'segundos')
 
 
 
