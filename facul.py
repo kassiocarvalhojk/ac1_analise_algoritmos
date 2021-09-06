@@ -1,6 +1,8 @@
 import random
 import time
 
+#ALGORITIMOS DE ORDENAÇÃO
+
 print('Algoritimo de ordenação BUBBLE SORT')
 inicio_BUBBLE = time.time()
 def bubble_sort(lista):
@@ -87,3 +89,27 @@ merge_sort(d)
 print('Lista ordenada\n', d)
 final_MERGE = time.time()
 print('Tempo de execução do MERGE SORT: ', round(final_MERGE - inicio_MERGE, 5),'segundos')
+
+
+
+#ALGORITIMOS DE BUSCA
+
+def busca_linear(arranjo, item):
+    if item in arranjo:
+        try:
+            return arranjo.index(item)
+
+        except ValueError:
+            return "Não existe"
+    else:
+        return "Não existe"
+
+#PESQUISA DE UM ELEMENTO PRESENTE
+
+lista = list(range(1, 101))
+
+print("O elemento {} está no indice {} do arranjo!".format(55, busca_linear(lista, 55)))
+
+#PESQUISA DE UM ELEMENTO PRESENTE
+
+print("O elemento {} {} no arranjo!".format(200, busca_linear(lista, 200)))
