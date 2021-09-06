@@ -3,6 +3,8 @@ import time
 
 #ALGORITIMOS DE ORDENAÇÃO
 
+#BUBBLE SORT
+
 print('Algoritimo de ordenação BUBBLE SORT')
 inicio_BUBBLE = time.time()
 def bubble_sort(lista):
@@ -41,7 +43,7 @@ print('Lista ordenada\n', b)
 final_SELECTION = time.time()
 print('Tempo de execução do SELECTION SORT: ', round(final_SELECTION - inicio_SELECTION, 5),'segundos\n')
 
-
+#INSERCTION SORT
 print('Algoritimo de ordenação INSERCTION SORT')
 inicio_INSERCTION = time.time()
 def inserction_sort(lista):
@@ -61,9 +63,7 @@ final_INSERCTION = time.time()
 print('Tempo de execução do INSERCTION SORT: ', round(final_INSERCTION - inicio_INSERCTION, 5),'segundos')
 
 
-
-
-
+#MERGE SORT
 print('Algoritimo de ordenação MERGE SORT')
 inicio_MERGE = time.time()
 def merge_sort(lista):
@@ -90,10 +90,45 @@ print('Lista ordenada\n', d)
 final_MERGE = time.time()
 print('Tempo de execução do MERGE SORT: ', round(final_MERGE - inicio_MERGE, 5),'segundos')
 
+#QUICK SORT
+print('Algoritimo de ordenação QUICK SORT')
+inicio_QUICK = time.time()
+def quick_sort(lista, esquerda, direita):
+    if esquerda < direita:
+        particao_posicao = particao(lista, esquerda, direita)
+        quick_sort(lista, esquerda, particao_posicao - 1)
+        quick_sort(lista, particao_posicao + 1, direita)
+
+def particao(lista, esquerda, direita):
+    i = esquerda
+    j = direita - 1
+    pivo = lista[direita]
+    
+    while i < j:
+        while i < direita and lista[i] < pivo:
+            i += 1
+        while j > esquerda and lista[j] >= pivo:
+            j -= 1
+        if i < j:
+            lista[i], lista[j] = lista[j], lista[i]
+    if lista[i] > pivo:
+        lista[i], lista[direita] = lista[direita], lista[i]
+         
+    return i
+
+e = list(range(101))
+random.shuffle(e)
+print('Lista gerada aleatoriamente\n', e)
+quick_sort(e, 0, len(e) - 1)
+print('Lista ordenada\n', e)
+final_QUICK = time.time()
+print('Tempo de execução do MERGE SORT: ', round(final_QUICK - inicio_QUICK, 5),'segundos')
+
 
 
 #ALGORITIMOS DE BUSCA
 
+#BUSCA LINEAR
 def busca_linear(arranjo, item):
     if item in arranjo:
         try:
