@@ -1,5 +1,6 @@
 import random
 import time
+from numpy.random import randint
 
 #ALGORITIMOS DE ORDENAÇÃO
 
@@ -40,14 +41,17 @@ print('Algoritimo de ordenação INSERCTION SORT')
 def inserction_sort(lista):
     for posicao in range(0, len(lista)):
         elementoAtual = lista[posicao]
+
         while posicao > 0 and lista[posicao - 1] > elementoAtual:
-            lista[posicao] = lista[elementoAtual]
-        posicao -= 1
+            lista[posicao] = lista[posicao - 1]
+            posicao -= 1
+
+        lista[posicao] = elementoAtual
 
 c = list(range(21))
 random.shuffle(c)
 print('Lista gerada aleatoriamente\n', c)
-selection_sort(c)
+inserction_sort(c)
 print('Lista ordenada\n', c)
 
 
@@ -143,7 +147,48 @@ print('Lista ordenada\n', f)
 
 
 #BUCKET SORT
+print('Algoritimo de ordenação BUCKET SORT')
+def bucket_sort(lista):
+    baldes = separa_baldes(lista)
+    baldes = ordena_baldes(baldes)
+    lista = junta_baldes(baldes)
+    return lista
 
+def separa_baldes(lista):
+    baldes = cria_baldes()
+    for item in lista:
+        i = len(baldes) - 1
+        while True:
+            if item > i*10:
+                baldes[i].append(item)
+                break
+            i -= 1    
+    return baldes
+
+def cria_baldes():
+    baldes = []
+    for _ in range(10):
+        baldes.append([])
+    return baldes
+
+def ordena_baldes(baldes):
+    for balde in baldes:
+        balde.sort()
+    return baldes
+
+def junta_baldes(baldes):
+    lista = []
+    for balde in baldes:
+        for item in balde:
+            lista.append(item)
+    return lista
+
+
+g = list(range(21))
+random.shuffle(g)
+print('Lista gerada aleatoriamente\n', g)
+bucket_sort(g)
+print('Lista ordenada\n', bucket_sort(g))
 
 #ALGORITIMOS DE BUSCA
 
