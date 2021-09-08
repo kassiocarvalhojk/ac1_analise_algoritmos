@@ -1,6 +1,6 @@
 import random
-import time
 from numpy.random import randint
+from math import floor
 
 #ALGORITIMOS DE ORDENAÇÃO
 
@@ -149,46 +149,55 @@ print('Lista ordenada\n', f)
 #BUCKET SORT
 print('Algoritimo de ordenação BUCKET SORT')
 def bucket_sort(lista):
-    baldes = separa_baldes(lista)
-    baldes = ordena_baldes(baldes)
-    lista = junta_baldes(baldes)
-    return lista
+    if not lista: # se a lista é vazia, retorna ela mesma
+        return lista
 
-def separa_baldes(lista):
-    baldes = cria_baldes()
-    for item in lista:
-        i = len(baldes) - 1
-        while True:
-            if item > i*10:
-                baldes[i].append(item)
-                break
-            i -= 1    
-    return baldes
+    # passos 1 e 2, cria os buckets e distribui os elementos neles
+    baldes = distribuicao(lista)
 
-def cria_baldes():
-    baldes = []
-    for _ in range(10):
-        baldes.append([])
-    return baldes
-
-def ordena_baldes(baldes):
+    # passo 3, ordena os buckets
     for balde in baldes:
-        balde.sort()
+        insertion_sort(balde)
+
+    # passo 4, junta os buckets
+    return juntando(baldes)
+
+def distribuicao(lista):
+    # passo 1, cria os buckets
+    min_valor = min(lista)
+    max_valor = max(lista)
+    qtd_baldes = floor((max_valor - min_valor) / len(lista)) + 1
+    baldes = [ [] for _ in range(qtd_baldes) ]
+
+    # passo 2, distribui os elementos nos buckets
+    for num in lista:
+        baldes[floor((num - min_valor) / len(lista))].append(num)
     return baldes
 
-def junta_baldes(baldes):
+def insertion_sort(balde):
+    # ordena um único bucket, usando insertion sort
+    for i in range(1, len(balde)):
+        up = balde[i]
+        j = i - 1
+        while j >= 0 and balde[j] > up:
+            balde[j + 1] = balde[j]
+            j -= 1
+        balde[j + 1] = up
+
+def juntando(baldes):
+    # passo 4, junta os buckets
     lista = []
     for balde in baldes:
-        for item in balde:
-            lista.append(item)
+        lista.extend(balde)
     return lista
 
 
 g = list(range(21))
 random.shuffle(g)
 print('Lista gerada aleatoriamente\n', g)
-bucket_sort(g)
 print('Lista ordenada\n', bucket_sort(g))
+
+
 
 #ALGORITIMOS DE BUSCA
 
